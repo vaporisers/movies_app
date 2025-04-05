@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "MovieFlix",
-    "slug": "React_Native_Practice",
+    "slug": "movie-flix",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/logo.png",
@@ -36,6 +36,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "d7c957ef-7bf5-4c41-8c16-141a50c7b0e9"
+      }
+    },
+    "owner": "superadam"
   }
 }

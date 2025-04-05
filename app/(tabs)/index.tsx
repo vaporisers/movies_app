@@ -82,7 +82,7 @@ const Index = () => {
                                     renderItem={({ item, index }) => (
                                         <TrendingCard movie={item} index={index} />
                                     )}
-                                    keyExtractor={(item) => item.movie_id.toString()}
+                                    keyExtractor={(item, index) => `trending-${item.movie_id}-${index}`}
                                     ItemSeparatorComponent={() => <View className="w-4" />}
                                 />
                             </View>
@@ -96,7 +96,7 @@ const Index = () => {
                             <FlatList
                                 data={movies}
                                 renderItem={({ item }) => <MovieCard {...item} />}
-                                keyExtractor={(item) => item.id.toString()}
+                                keyExtractor={(item, index) => `movie-${item.id}-${index}`}
                                 numColumns={3}
                                 columnWrapperStyle={{
                                     justifyContent: "flex-start",
