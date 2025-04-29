@@ -56,7 +56,7 @@ const Profile = () => {
 
         try {
             setIsSubmitting(true);
-            const redirectUrl = "https://fra.cloud.appwrite.io"; // Replace with your recovery page URL
+            const redirectUrl = "https://vaporisers.github.io/movies_app/public/reset/"; // Update with your reset page URL
             await account.createRecovery(email, redirectUrl);
             Alert.alert("Success", "Password reset email sent. Please check your inbox.");
         } catch (error: any) {
