@@ -12,6 +12,10 @@ document.getElementById("resetForm").addEventListener("submit", async (e) => {
     const confirmPassword = document.getElementById("confirmPassword").value;
     const messageElement = document.getElementById("message");
 
+    // Clear previous messages
+    messageElement.textContent = "";
+    messageElement.style.color = "red";
+
     if (password !== confirmPassword) {
         messageElement.textContent = "Passwords do not match.";
         return;
@@ -31,6 +35,7 @@ document.getElementById("resetForm").addEventListener("submit", async (e) => {
         messageElement.style.color = "green";
         messageElement.textContent = "Password reset successful. You can now log in.";
     } catch (error) {
-        messageElement.textContent = error.message;
+        console.error("Error resetting password:", error);
+        messageElement.textContent = `Error: ${error.message || "Failed to reset password. Please try again."}`;
     }
 });
