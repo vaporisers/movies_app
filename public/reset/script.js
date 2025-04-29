@@ -10,14 +10,14 @@ document.getElementById("resetForm").addEventListener("submit", async (e) => {
 
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
-    const messageElement = document.getElementById("message");
+    const feedbackElement = document.getElementById("feedback");
 
-    // Clear previous messages
-    messageElement.textContent = "";
-    messageElement.style.color = "red";
+    // Clear previous feedback
+    feedbackElement.innerHTML = "";
+    feedbackElement.style.color = "";
 
     if (password !== confirmPassword) {
-        messageElement.textContent = "Passwords do not match.";
+        feedbackElement.innerHTML = `<span style="color: red;">&#10060; Passwords do not match.</span>`;
         return;
     }
 
@@ -26,20 +26,18 @@ document.getElementById("resetForm").addEventListener("submit", async (e) => {
     const secret = urlParams.get("secret");
 
     if (!userId || !secret) {
-        messageElement.textContent = "Invalid reset link.";
+        feedbackElement.innerHTML = `<span style="color: red;">&#10060; Invalid reset link.</span>`;
         console.error("Invalid reset link: Missing userId or secret.");
         return;
     }
 
     try {
         console.log("Attempting password reset with:", { userId, secret });
-        const response = await account.updateRecovery(userId, secret, password, confirmPassword);
-        console.log("Password reset response:", response);
+        await account.updateRecovery(userId, secret, password, confirmPassword);
 
-        messageElement.style.color = "green";
-        messageElement.textContent = "Password reset successful. You can now log in.";
+        feedbackElement.innerHTML = `<span style="color: green;">&#9989; Password reset successful. You can now log in.</span>`;
     } catch (error) {
         console.error("Error resetting password:", error);
-        messageElement.textContent = `Error: ${error.message || "Failed to reset password. Please try again."}`;
+        feedbackElement.innerHTML = `<span style="color: red;">&#10060; ${error.message || "Failed to reset password. Please try again."}</span>`;
     }
 });
