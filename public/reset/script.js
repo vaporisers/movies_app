@@ -1,9 +1,7 @@
-import { Client, Account } from "appwrite";
-
-const client = new Client();
+const client = new Appwrite.Client();
 client.setEndpoint("https://fra.cloud.appwrite.io/v1").setProject("67dfdda6003a5bb1f898");
 
-const account = new Account(client);
+const account = new Appwrite.Account(client);
 
 document.getElementById("resetForm").addEventListener("submit", async (e) => {
     e.preventDefault(); // Prevent page refresh
@@ -33,16 +31,12 @@ document.getElementById("resetForm").addEventListener("submit", async (e) => {
 
     try {
         console.log("Attempting password reset with:", { userId, secret });
-
-        // Call Appwrite's updateRecovery API
         const response = await account.updateRecovery(userId, secret, password, confirmPassword);
         console.log("Password reset response:", response);
 
         feedbackElement.innerHTML = `<span style="color: green;">&#9989; Password reset successful. You can now log in.</span>`;
     } catch (error) {
         console.error("Error resetting password:", error);
-
-        // Display error feedback
         feedbackElement.innerHTML = `<span style="color: red;">&#10060; ${error.message || "Failed to reset password. Please try again."}</span>`;
     }
 });
