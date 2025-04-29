@@ -31,8 +31,8 @@ const Save = () => {
             poster_path={item.poster_path}
             title={item.title}
             vote_average={item.vote_average}
-            release_date={item.release_date}
-        />
+            release_date={item.release_date} adult={false} backdrop_path={""} genre_ids={[]} original_language={""}
+            original_title={""} overview={""} popularity={0} video={false} vote_count={0}        />
     );
 
     return (
@@ -48,10 +48,14 @@ const Save = () => {
                 contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
             >
                 <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
-                <View className="flex justify-center items-start flex-1 flex-col gap-5">
-                    <Text className="text-lg text-white font-bold mb-3">Watchlist</Text>
+                <View className="flex flex-col gap-5">
+                    <View className="flex-row justify-start items-center">
+                        <Text className="text-lg text-white font-bold">Watchlist</Text>
+                    </View>
                     {savedMovies.length === 0 ? (
-                        <Text className="text-gray-500 text-base self-center">No movies saved</Text>
+                        <View className="flex justify-center items-center flex-1">
+                            <Text className="text-gray-500 text-base">No movies saved</Text>
+                        </View>
                     ) : (
                         <FlatList
                             data={savedMovies as SavedMovie[]}
