@@ -27,11 +27,15 @@ document.getElementById("resetForm").addEventListener("submit", async (e) => {
 
     if (!userId || !secret) {
         messageElement.textContent = "Invalid reset link.";
+        console.error("Invalid reset link: Missing userId or secret.");
         return;
     }
 
     try {
-        await account.updateRecovery(userId, secret, password, confirmPassword);
+        console.log("Attempting password reset with:", { userId, secret });
+        const response = await account.updateRecovery(userId, secret, password, confirmPassword);
+        console.log("Password reset response:", response);
+
         messageElement.style.color = "green";
         messageElement.textContent = "Password reset successful. You can now log in.";
     } catch (error) {
