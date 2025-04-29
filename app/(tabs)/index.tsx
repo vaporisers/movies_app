@@ -44,7 +44,7 @@ const Index = () => {
             <FlatList
                 className="flex-1 px-5"
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }}
+                contentContainerStyle={{ minHeight: "100%", paddingBottom: 10 }} // Keep this one
                 ListHeaderComponent={
                     <>
                         <Image source={icons.logo} className="w-12 h-10 mt-20 mb-5 mx-auto" />
@@ -87,6 +87,9 @@ const Index = () => {
                                         />
                                     </View>
                                 )}
+                                <Text className="text-lg text-white font-bold mb-3">
+                                    Popular Movies
+                                </Text>
                             </View>
                         )}
                     </>
@@ -100,7 +103,6 @@ const Index = () => {
                     gap: 16,
                     marginVertical: 16,
                 }}
-                contentContainerS tyle={{ paddingBottom: 100 }}
             />
         </View>
     );
