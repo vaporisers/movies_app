@@ -33,7 +33,8 @@ document.getElementById("resetForm").addEventListener("submit", async (e) => {
 
     try {
         console.log("Attempting password reset with:", { userId, secret });
-        await account.updateRecovery(userId, secret, password, confirmPassword);
+        const response = await account.updateRecovery(userId, secret, password, confirmPassword);
+        console.log("Password reset response:", response);
 
         feedbackElement.innerHTML = `<span style="color: green;">&#9989; Password reset successful. You can now log in.</span>`;
     } catch (error) {
