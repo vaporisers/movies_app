@@ -3,26 +3,70 @@ import { Text, Image, TouchableOpacity, View, ToastAndroid, Alert, Platform } fr
 import { useContext } from "react";
 import { icons } from "@/constants/icons";
 import { SavedMoviesContext } from "@/context/SavedMoviesContext";
+import { AuthContext } from "@/context/AuthContext";
 
 const MovieCard = ({ id, poster_path, title, vote_average, release_date }: Movie) => {
     const { savedMovies, addMovie, removeMovie } = useContext(SavedMoviesContext);
+    const { user } = useContext(AuthContext);
     const isSaved = savedMovies.some(movie => movie.id === id);
 
-    const handleSave = () => {
-        addMovie({ id, poster_path, title, vote_average, release_date });
-        if (Platform.OS === 'android') {
-            ToastAndroid.show("Movie Has Been Added To Watchlist", ToastAndroid.SHORT);
-        } else {
-            Alert.alert("Movie Has Been Added To Watchlist");
+    const handleSave = async () => {
+        try {
+            if (!user) {
+                if (Platform.OS === 'android') {
+                    ToastAndroid.show("Please log in to save movies", ToastAndroid.SHORT);
+                } else {
+                    Alert.alert("Please log in to save movies");
+                }
+                return;
+            }
+
+            await addMovie({
+                id,
+                poster_path,
+                title,
+                vote_average,
+                release_date,
+                adult: false,
+                backdrop_path: "",
+                genre_ids: [],
+                original_language: "",
+                original_title: "",
+                overview: "",
+                popularity: 0,
+                video: false,
+                vote_count: 0
+            });
+
+            if (Platform.OS === 'android') {
+                ToastAndroid.show("Movie Has Been Added To Watchlist", ToastAndroid.SHORT);
+            } else {
+                Alert.alert("Movie Has Been Added To Watchlist");
+            }
+        } catch (error: any) {
+            if (Platform.OS === 'android') {
+                ToastAndroid.show(error.message, ToastAndroid.SHORT);
+            } else {
+                Alert.alert("Error", error.message);
+            }
         }
     };
 
-    const handleUnsave = () => {
-        removeMovie(id);
-        if (Platform.OS === 'android') {
-            ToastAndroid.show("Movie Has Been Removed From Watchlist", ToastAndroid.SHORT);
-        } else {
-            Alert.alert("Movie Has Been Removed From Watchlist");
+    const handleUnsave = async () => {
+        try {
+            if (!user) return;
+            await removeMovie(id);
+            if (Platform.OS === 'android') {
+                ToastAndroid.show("Movie Has Been Removed From Watchlist", ToastAndroid.SHORT);
+            } else {
+                Alert.alert("Movie Has Been Removed From Watchlist");
+            }
+        } catch (error: any) {
+            if (Platform.OS === 'android') {
+                ToastAndroid.show(error.message, ToastAndroid.SHORT);
+            } else {
+                Alert.alert("Error", error.message);
+            }
         }
     };
 
