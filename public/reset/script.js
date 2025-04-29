@@ -4,13 +4,12 @@ client.setEndpoint("https://fra.cloud.appwrite.io/v1").setProject("67dfdda6003a5
 const account = new Appwrite.Account(client);
 
 document.getElementById("resetForm").addEventListener("submit", async (e) => {
-    e.preventDefault(); // Prevent page refresh
+    e.preventDefault();
 
     const password = document.getElementById("password").value;
     const confirmPassword = document.getElementById("confirmPassword").value;
     const feedbackElement = document.getElementById("feedback");
 
-    // Clear previous feedback
     feedbackElement.innerHTML = "";
     feedbackElement.style.color = "";
 
